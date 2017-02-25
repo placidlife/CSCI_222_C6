@@ -5,7 +5,6 @@
 #include <vector>
 #include <ctime>
 
-#include "StockItem.cpp"
 
 using namespace std;
 
@@ -21,7 +20,7 @@ class Transaction
 		int		quantityProcessed;
 	public:
 		Transaction(string itemID, string transactionID, time_t date, time_t time, 
-			double transactionPrice, double transactionTotal);
+			double transactionPrice, double transactionTotal, int quantityProcessed);
 		//string generateID();
 		string	getStockItemID();
 		string	getTransactionID();
@@ -31,13 +30,12 @@ class Transaction
 		double	getTransactionTotal();
 		int		getQuantityProcessed();
 		
-		void	updateQuantity(int);
-		void	updateDate(time_t);
+		bool	updateQuantity(int);
+		bool	updateDate(time_t);
 		void	updateTime(time_t);
-		void	updatePrice(double);
+		bool	updatePrice(double);
 
 		string	toString();
-		void	voidTransaction();
-}
+};
 
 #endif
