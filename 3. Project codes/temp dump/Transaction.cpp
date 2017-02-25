@@ -8,8 +8,8 @@
 
 using namespace std;
 
-Transaction::Transaction(string iID, string transac_ID, time_t transac_date, time_t transac_time, 
-	double price, double totalPrice, int quantity)
+Transaction::Transaction(string iID, string transac_ID, tm transac_date, tm transac_time, 
+	double price, int quantity)
 {
 	itemID 				= iID;
 	transactionID		= transac_ID;
@@ -53,59 +53,54 @@ bool Transaction::updateQuantity(int quantity)
 	}
 }
 // with reference from https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
-bool Transaction::updateDate(time_t transac_date)
+bool Transaction::updateDate(tm transac_date)
 {
 
 	time_t t = time(0);   // get time now
     tm *now = localtime( & t );
-	tm *check	= localtime( & transac_date );
-	if ( now->tm_year >= check->tm_year)
+	if ( now->tm_year >= transac_date.tm_year)
 	{ 
-		if( now->tm_mon >= check->tm_mon)
+		if( now->tm_mon >= transac_date.tm_mon)
 		{
-			if (now->tm_mday >= check->tm_mday)
+			if (now->tm_mday >= transac_date.tm_mday)
 			{
 				transactionDate = transac_date;
 				return true;
 			}
-			else
-				return false;
+			else return false;
 		}
-		else
-			return false;
+		else return false;
 	}
-	else
-		return false;
+	else return false;
 }
 
-bool Transaction::updateTime(time_t transac_time)
+bool Transaction::updateTime(tm transac_time)
 {
 	time_t t = time(0);   // get time now
     tm *now = localtime( & t );
-	tm *check	= localtime( & transac_time );
-	if ( now->tm_year >= check->tm_year)
+//	tm *check	= localtime( & transac_time );
+	if ( now->tm_year >= transac_date.tm_year)
 	{ 
-		if( now->tm_mon >= check->tm_mon)
+		if( now->tm_mon >= transac_date.tm_mon)
 		{
-			if (now->tm_mday >= check->tm_mday)
+			if (now->tm_mday >= transac_date.tm_mday)
 			{
-				if (now->tm_hour >= check->tm_hour)
+				if (now->tm_hour >= transac_date.tm_hour)
 				{
-					if(now->tm_min >= check->tm_min)
+					if(now->tm_min >= transac_date.tm_min)
 					{
 						transactionTime	= transac_time;
 						return true;
 					}
+					else return false;
 				}
+				else return false;
 			}
-			else
-				return false;
+			else return false;
 		}
-		else
-			return false;
+		else return false;
 	}
-	else
-		return false;
+	else return false;
 }
 
 bool Transaction::updatePrice(double price)

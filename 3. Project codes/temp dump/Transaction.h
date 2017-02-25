@@ -13,19 +13,19 @@ class Transaction
 	private:
 		string	itemID;
 		string	transactionID;
-		time_t	transactionDate;
-		time_t	transactionTime;
+		tm	transactionDate;
+		tm	transactionTime;
 		double	transactionPrice;
 		double	transactionTotal;
 		int		quantityProcessed;
 	public:
 		Transaction(string itemID, string transactionID, time_t transactionDate, time_t transactionTime, 
-			double transactionPrice, double transactionTotal, int quantityProcessed);
+			double transactionPrice, int quantityProcessed);
 		//string generateID();
 		string	getStockItemID();
 		string	getTransactionID();
-		time_t	getDate();
-		time_t	getTime();
+		tm		getDate();
+		tm		getTime();
 		double	getTransactionPrice();
 		double	getTransactionTotal();
 		int		getQuantityProcessed();
