@@ -13,13 +13,13 @@ class Transaction
 	private:
 		string	itemID;
 		string	transactionID;
-		time_t	date;
-		time_t	time;
+		time_t	transactionDate;
+		time_t	transactionTime;
 		double	transactionPrice;
 		double	transactionTotal;
 		int		quantityProcessed;
 	public:
-		Transaction(string itemID, string transactionID, time_t date, time_t time, 
+		Transaction(string itemID, string transactionID, time_t transactionDate, time_t transactionTime, 
 			double transactionPrice, double transactionTotal, int quantityProcessed);
 		//string generateID();
 		string	getStockItemID();
@@ -32,7 +32,7 @@ class Transaction
 		
 		bool	updateQuantity(int);
 		bool	updateDate(time_t);
-		void	updateTime(time_t);
+		bool	updateTime(time_t);
 		bool	updatePrice(double);
 
 		string	toString();
