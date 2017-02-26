@@ -9,16 +9,14 @@
 using namespace std;
 
 Transaction::Transaction(string iID, string transac_ID, tm transac_date, tm transac_time, 
-	double price, int quantity)
-{
-	itemID 			= iID;
+double price, int quantity){
+	itemID 				= iID;
 	transactionID		= transac_ID;
-	date			= transac_date;
-	time			= transac_time;
+	transactionDate		= transac_date;
+	transactionTime		= transac_time;
 	transactionPrice	= price;
+	transactionTotal	= totalPrice;
 	quantityProcessed	= quantity;
-	transactionTotal	= quantity * price;
-	
 }
 
 string Transaction::getStockItemID()
@@ -28,10 +26,10 @@ string Transaction::getTransactionID()
 { return transactionID; }
 
 time_t Transaction::getDate()
-{ return date;  }
+{ return transactionDate;  }
 
 time_t Transaction::getTime()
-{ return time; }
+{ return transactionTime; }
 
 double Transaction::getTransactionPrice()
 { return transactionPrice; }
@@ -43,51 +41,45 @@ int Transaction::getQuantityProcessed()
 { return quantityProcessed; }
 
 
-bool Transaction::updateQuantity(int quantity)
-{ 
-	quantityProcessed = quantity;
-	return true;
+bool Transaction::updateQuantity(int quantity){ 
+	if (quantity < 0)
+		return false;
+	else{
+		quantityProcessed = quantity;
+		return true;
+	}
 }
 // with reference from https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
-bool Transaction::updateDate(time_t transac_date)
-{
-/*
-time_t my_time;
-struct tm * timeinfo; 
-time (&my_time);
-timeinfo = localtime (&my_time);
-*/
-
+bool Transaction::updateDate(tm transac_date){
 	time_t now;
-	time (&now);
-	tm *check	= localtime(&transac_date);
-	tm *ltm 	= localtime(&now);
-	if ( ltm->tm_year < check->tm_year)
-	{ 
-		if( ltm->tm_mon < check->tm_mon)
-		{
-			if (ltm->tm_mday < check->tm_mday)
-				return false;
-		}
-	}
-	else
-	{
-		date = transac_date;
+	time(&now);
+	//if input date > current date, return false
+	if (difftime(now, mktime (&transac_date)) < 0)){
+		return false;	
+	} 
+	else{
+		transactionDate = transac_date;
 		return true;
 	}
 }
 
-void Transaction::updateTime(time_t transac_time)
-{
-	time = transac_time;
+bool Transaction::updateTime(tm transac_time){
+	time_t now;
+	time(&now);
+	//if input date > current date, return false
+	if (difftime(now, mktime (&transac_time)) < 0)){
+		return false;	
+	}
+	else{
+		transactionTime = transac_time;
+		return true;
+	}
 }
 
-bool Transaction::updatePrice(double price)
-{ 
+bool Transaction::updatePrice(double price){ 
 	if (price < 0)
 		return false;
-	else
-	{
+	else{
 		transactionPrice = price;
 		return true;
 	}
@@ -100,8 +92,8 @@ string Transaction::toString(){
 	ostringstream ss;
 	ss << setw(10) << left << itemID;
 	ss << setw(10) << left << transactionID;
-	ss << setw(10) << left << date;
-	ss << setw(10) << left << time;
+	ss << setw(10) << left << transactionDate;
+	ss << setw(10) << left << transactionTime;
 	ss << "$" << setw(10) << left << setprecision(2) << transactionPrice;
 	ss << "$" << setw(10) << left << setprecision(2) << transactionTotal;
 	ss << setw(10) << left << quantityProcessed << "\n";
