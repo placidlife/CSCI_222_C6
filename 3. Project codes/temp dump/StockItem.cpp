@@ -1,5 +1,6 @@
 #include <string>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <algorithm> // to use find() in vector
 #include "StockItem.h"
@@ -116,8 +117,8 @@ void StockItem::printItemSumm(){
 	int count = 0;
 	for (auto const &t : itemTransactions){
 		cout << t->toString();
-		i++;
-		if (i == 20)
+		count++;
+		if (count == 20)
 			break;
 	}
 }

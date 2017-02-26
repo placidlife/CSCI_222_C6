@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include "Common.h"
 
 using namespace std;
 
@@ -28,9 +29,9 @@ class Transaction
 		int	getQuantityProcessed();
 		int 	getQuantityRemaining();
 		
-		void	updateQuantity(int);
-		void	updateDateAndTime(tm);
-		void	updatePrice(double);
+		bool	updateQuantity(int);
+		bool	updateDateAndTime(tm);
+		bool	updatePrice(double);
 		void	updateQuantityRemaining(int);
 
 		string	toString(); // get string for item itself
