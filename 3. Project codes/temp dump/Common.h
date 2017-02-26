@@ -14,16 +14,20 @@ class Common{
 		int checkPositiveInt(string input);
 		// get string input and check if input is positive double
 		double checkPositiveCurrency(string input);
+		
 		// get string date and time, and check if it's a past date
 		bool checkValidDateTime1(string date, string time);
 		bool checkValidDateTime2(string dateAndTime);
+
+		// for reading in data file's format
+		tm getDateAndTime2(string input);
+
 		// get a random time of tm datatype
 		tm getRandomTime();
 		// get current time of tm datatype
 		tm getCurrentTime();
-		// check if input choice is Y/N
-		// return 1 for yes, 0 for no, -1 for invalid
-		int checkInputYN(string input);
+		// a function to get user to input only "Y/N" with error checking
+		bool getInputYN(string message);
 
 	private: 
 		// convert month string name to int

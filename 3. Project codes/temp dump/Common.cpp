@@ -21,16 +21,23 @@ double Common::checkPositiveCurrency(string input){
 	// TODO
 }
 
-int checkInputYN(string input){
-	// if size of string is > 1, reject already
-	if (input.size() > 1)
-		return -1;
-	else if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0)
-		return 1;
-	else if (strcmp(input, "N") == 0 || strcmp(input, "n") == 0)
-		return 0;
-	else
-		return -1;
+// function that gets user to input only "Y/N" with error checking
+int checkInputYN(string message){
+	string input;
+	cout << message;
+	while (1){
+		getline(cin, input);
+		if (input.size() > 1){
+			cout << "Please enter only 'Y' or 'N': ";
+		}	
+		else if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0){
+			return 1;
+		}else if (strcmp(input, "N") == 0 || strcmp(input, "n") == 0){
+			return 0;
+		}else{
+			cout << "Please enter only 'Y' or 'N': ";
+		}
+	}
 }
 
 bool Common::checkValidDateTime1(string dateStr, string timeStr){
