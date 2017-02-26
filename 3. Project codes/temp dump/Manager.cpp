@@ -1,10 +1,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <ctime>
 
 #include "Manager.h"
 #include "WarehouseManager.h"
-#include "commonCheck.h"
+#include "Common.h"
 
 using namespace std; 
 
@@ -137,7 +140,7 @@ void Manager::readFile()
 
 	ifstream infile;
 	
-	infile.open(fileName, ios::in);
+	infile.open(fileName);
 
 	if (!infile){
 		cout << fileName << " does not exist." << endl << endl;
@@ -151,6 +154,9 @@ void Manager::readFile()
 	while (getline (infile, line)){
 		processData(line);
 	}
+	
+	// call function to generate remaining quantity for all transactions
+	static_cast<WarehouseManager*>(WM)->generateRemainingQuantity();
 
 	infile.close();
 
@@ -160,5 +166,38 @@ void Manager::readFile()
 }
 
 void Manager::processData(string line){
-	// TODO
+	// if line is empty (in case of any writing error) don't do anything
+	if (line.length() > 0){
+		// use stringstream to break line into tokens
+		istringstream iss(line);
+		string token;
+		vector<string> fields;
+		while (getline(iss, token, ":")){
+			// store tokens into vector to access later
+			fields.push_back(token);
+		}
+		// now extract the data and store them accordingly
+		string itemID = fields[0];
+		string itemName = fields[1];
+		string itemCat = fields[2];
+		string itemSubCat = fields[3];
+		double itemPrice = stod(fields[4]);
+		int stockMoved = stoi(fields[5]);
+		tm date = getDate(fields[6]);
+		tm time = getRandomTime();	
+		string transID = static_cast<WarehouseManager*>(WM)->generateTransactionID();
+		// now create item
+		StockItem *newItem = new StockItem(itemID, itemName, itemCat, itemSubCat);
+		newItem->updatePrice(itemPrice);
+		// NOTE: REMEMBER THAT UNIT QUANTITY NOT UPDATED YET	
+		// NOTE: for his data, we'll just leave the threshold to 0
+		
+		// store item to list 
+		static_cast<WarehouseManager*>(WM)->addStockItem(newItem);
+		// now create transaction 
+		Transaction *newTransaction = new Transaction(itemID, transID, date, time, stockMoved);
+		// store transaction to list
+		static_cast<WarehouseManager*>(WM)->addTransaction(newTransaction);
+	}
 }
+

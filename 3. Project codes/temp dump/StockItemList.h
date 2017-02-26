@@ -1,6 +1,8 @@
 #ifndef STOCKITEMLIST_H
 #define STOCKITEMLIST_H
 
+#include "StockItem.h"
+
 using namespace std;
 
 class StockItemList {

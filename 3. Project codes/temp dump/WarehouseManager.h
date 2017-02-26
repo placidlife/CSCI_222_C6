@@ -15,7 +15,7 @@ class WarehouseManager
   public:
     WarehouseManager(Staff * stf);
     //~WarehouseManager();
-    setData(TransactionList tList, StockItemList sIL);
+    void setData(TransactionList tList, StockItemList sIL);
     void running(); // does most of the work
 #if 1
     void testFunction();
