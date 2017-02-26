@@ -27,6 +27,9 @@ class StockItemList {
 		// give list of stock items to search
 		vector<StockItem *> getListOfStockItems();
 
+		// used to print header for item
+		static string getHeader(); 
+
 };
 
 #endif

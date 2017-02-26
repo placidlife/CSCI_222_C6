@@ -147,3 +147,7 @@ bool StockItemList::removeStockItem (StockItem * item){
 vector<StockItem *> StockItemList::getListOfStockItems(){
 	return stockItems;
 }
+
+static string StockItemList::getHeader(){
+	// TODO
+}

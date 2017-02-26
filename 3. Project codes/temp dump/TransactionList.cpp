@@ -131,3 +131,6 @@ bool TransactionList::removeTransaction (Transaction * t){
 	return false;
 }
 
+static string TransactionList::getHeader(){
+	// TODO
+}
