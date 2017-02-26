@@ -7,13 +7,14 @@ class StockItemList {
 
 	private:
 		vector<StockItem *> stockItems;
+		void * WM;
 		void readStockItemFile();
 		void updateStockItemFile();
 		void processData(string line);
 
 	public: 
 		// constructor
-		StockItemList();
+		StockItemList(void *wm);
 		
 		void addStockItem(StockItem * item);
 		// use this to check if exists first
@@ -29,6 +30,9 @@ class StockItemList {
 
 		// used to print header for item
 		static string getHeader(); 
+
+		// for when generation remaining quantity
+		void updateItemQuantity(string itemID, int quantRemain);
 
 };
 

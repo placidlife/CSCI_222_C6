@@ -3,7 +3,9 @@
 #include "StockItemList.h"
 
 // constructor
-StockItemList::StockItemList(){
+StockItemList::StockItemList(void * wm){
+	// set WM
+	WM = wm;
 	// read stock item file and get in all stock item data
 	readStockItemFile();
 }
@@ -157,4 +159,15 @@ static string StockItemList::getHeader(){
 	ss << setw(10) << left << "Price";
 	ss << setw(10) << left << "Quantity" << "\n";
 	return ss.str();
+}
+
+// for when generation remaining quantity
+void updateItemQuantity(string itemID, int quantRemain){
+	// find item and update it's quantity
+	for (auto const & item : stockItems){
+		if (strcmp(itemID, item->getID())==0){
+			item->updateQuantity(quantRemain);
+			break;
+		}
+	}
 }

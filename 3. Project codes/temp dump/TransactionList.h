@@ -7,12 +7,13 @@ class TransactionList {
 
 	private:
 		vector<Transaction *> transactions;
+		void * WM;
 		void readTransactionFile();
 		void updateTransactionFile();
 
 	public: 
 		// constructor
-		TransactionList();
+		TransactionList(void * wm);
 		
 		void addTransaction(Transaction * t);
 		// use this to check if exists first
@@ -24,6 +25,9 @@ class TransactionList {
 
 		// used to print header for item
 		static string getHeader(); 
+
+		// for initialization, give all transactions a remaining quantity
+		void generateRemainingQuantity();
 
 };
 

@@ -5,7 +5,9 @@ using namespace std;
 
 
 // constructor
-TransactionList::TransactionList(){
+TransactionList::TransactionList(void *wm){
+	// set WM
+	WM = wm;
 	// read stock item file and get in all stock item data
 	readTransactionFile();
 }
@@ -142,4 +144,39 @@ static string TransactionList::getHeader(){
 	ss << setw(13) << left << "Total Amount" <<
 	ss << "Quantity Remaining" << "\n";
 	return ss.str();
+}
+
+void TransactionList::generateRemainingQuantity(){
+	// keep a list of items that have been given an initial quantity
+	vector<string> doneItems;
+	// go through every transaction in list 
+	for (auto const & t : transactions){
+		// for transaction whose item is not in list of initialized items
+		if (!checkIn(t->getStockItemID(), doneItems){
+			// give them an initial quantity
+			t->updateQuantity(1000);
+			// update the item too
+			static_cast<WarehouseManager*>(WM)->updateItemQuantity(t->getStockItemID(), 1000);
+			// and put their id into list
+			doneItems.push_back(t->getStockItemID());
+		}
+	}
+
+	// now go through every initialized item
+	// and go through every transaction of each item 
+	// to update the remaining quantity of the following transactions
+	for (auto const & itemID : doneItems){
+		int prevQuant = 1000;
+		for (auto const & t : transactions) {
+			if (strcmp(itemID, t->getStockItemID() == 0){
+				// udpate the current remaining quantity
+				// by + or - the quantity processed
+				t->updateQuantityRemaining(prevQuant + t->getQuantityProcessed());
+				// update the item too
+				static_cast<WarehouseManager*>(WM)->updateItemQuantity(itemID, t->getQuantityRemaining());	
+				// set current remaining quantity to prev for later use
+				prevQuant = t->getQuantityRemaining();
+			}
+		}
+	}
 }
