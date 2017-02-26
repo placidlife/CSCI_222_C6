@@ -41,6 +41,10 @@ class Common{
 		// combine time tm to date tm
 		static tm setTimeToDate(tm date, tm time); 
 
+		// convert tm datatype to string
+		// nice version (not for data file)
+		static string getDateString(tm date);
+
 	private: 
 		// convert month string name to int
 		static int convertMonthStrToInt(string input);

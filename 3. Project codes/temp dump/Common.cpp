@@ -182,6 +182,16 @@ tm Common::getDateAndTime(string input){
 	return time;
 }
 
+string Common::getDateString(tm date){
+	stringstream ss;
+	ss << date.tm_year << "-" 
+		<< date.tm_mon << "-"
+		<< date.tm_mday << " "
+		<< date.tm_hour << ":"
+		<< date.tm_min;
+	return ss.str();
+}
+
 int Common::convertMonthStrToInt(string input){
 	if (input == "Jan" || input == "JAN"){
 		return 0;
