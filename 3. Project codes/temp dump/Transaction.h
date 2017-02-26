@@ -18,6 +18,7 @@ class Transaction
 		double	transactionPrice;
 		double	transactionTotal;
 		int	quantityProcessed;
+		int 	quantityRemaining;
 	public:
 		Transaction(string itemID, string transactionID, tm date, 
 			double transactionPrice, int quantityProcessed);
@@ -28,10 +29,12 @@ class Transaction
 		double	getTransactionPrice();
 		double	getTransactionTotal();
 		int	getQuantityProcessed();
+		int 	getQuantityRemaining();
 		
 		void	updateQuantity(int);
 		void	updateDateAndTime(tm);
 		void	updatePrice(double);
+		void	updateQuantityRemaining(int);
 
 		string	toString();
 		void	voidTransaction();

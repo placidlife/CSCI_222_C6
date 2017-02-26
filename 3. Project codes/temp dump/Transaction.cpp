@@ -44,6 +44,10 @@ bool Transaction::updateQuantity(int quantity)
 	quantityProcessed = quantity;
 	return true;
 }
+
+void Transaction::updateQuantityRemaining(int quantity){
+	quantityRemaining = quantity;
+}
 // with reference from https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
 bool Transaction::updateDateAndTime(time_t transac_date)
 {
