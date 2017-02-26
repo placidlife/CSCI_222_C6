@@ -2,7 +2,9 @@
 
 #include <iostream>
 #include <ctime>
+#include <sstream> // for stringstream
 #include <string.h>
+#include <vector>
 #include <stdlib.h> // rand
 
 using namespace std;
@@ -41,9 +43,9 @@ int checkInputYN(string message){
 		if (input.size() > 1){
 			cout << "Please enter only 'Y' or 'N': ";
 		}	
-		else if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0){
+		else if (input == "Y" || input == "y"){
 			return 1;
-		}else if (strcmp(input, "N") == 0 || strcmp(input, "n") == 0){
+		}else if (input == "N" || input == "n"){
 			return 0;
 		}else{
 			cout << "Please enter only 'Y' or 'N': ";
@@ -54,13 +56,13 @@ int checkInputYN(string message){
 bool Common::checkValidDateTime1(string dateStr, string timeStr){
 	// convert string input into tm struct data type
 	struct tm date = getDate(dateStr);
-	struct tm time = getTime(timeStr);
-	date = setTimeToDate(date, time);
-	time_t now;
-	time(&now);
+	struct tm timee = getTime(timeStr);
+	date = setTimeToDate(date, timee);
+	time_t timeNow;
+	time(&timeNow);
 	// if the current date is future from now
 	// return false
-	if (difftime(now, mktime(&date) < 0){
+	if (difftime(timeNow, mktime(&date) < 0)){
 		return false;
 	}else{
 		return true;
@@ -70,11 +72,11 @@ bool Common::checkValidDateTime1(string dateStr, string timeStr){
 bool Common::checkValidDateTime2(string dateAndTimeStr){
 	// convert string input into tm struct data type
 	struct tm dateAndTime = getDateAndTime(dateAndTimeStr);
-	time_t now;
-	time(&now);
+	time_t timeNow;
+	time(&timeNow);
 	// if the current date is future from now
 	// return false
-	if (difftime(now, mktime(&dateAndTime) < 0){
+	if (difftime(timeNow, mktime(&dateAndTime)) < 0){
 		return false;
 	}else{
 		return true;
@@ -82,12 +84,12 @@ bool Common::checkValidDateTime2(string dateAndTimeStr){
 }
 
 tm Common::getRandomTime(){
-	struct tm time;
+	struct tm myTime;
 	srand(time(NULL));
-	time.tm_hour = rand()%24;
-	time.tm_min = rand()%60;
-	time.tm_sec = rand()%60;
-	return time;
+	myTime.tm_hour = rand()%24;
+	myTime.tm_min = rand()%60;
+	myTime.tm_sec = rand()%60;
+	return myTime;
 }
 
 tm Common::getCurrentTime(){
@@ -102,14 +104,18 @@ tm Common::setTimeToDate(tm date, tm time){
 	date.tm_hour = time.tm_hour;
 	date.tm_min = time.tm_min;
 	date.tm_sec = time.tm_sec;
+	return date;
 }
 
 tm Common::getDate(string input){
 	// use stringstream to break line into tokens
 	istringstream iss (input);
 	string token;
+	string delimiter = "-";
 	vector<string> fields;
-	while (getline(iss, token, "-")){
+	size_t pos = 0;
+	while ((pos = input.find(delimiter)) != string::npos){
+		token = input.substr(0, pos);
 		// store tokens into vector to access later
 		fields.push_back(token);
 	}
@@ -129,8 +135,11 @@ tm Common::getTime(string input){
 	// use stringstream to break line into tokens
 	istringstream iss (input);
 	string token;
+	string delimiter = ".";
 	vector<string> fields;
-	while (getline(iss, token, ".")){
+	size_t pos = 0;
+	while ((pos = input.find(delimiter)) != string::npos){
+		token = input.substr(0, pos);
 		// store tokens into vector to access later
 		fields.push_back(token);
 	}
@@ -173,54 +182,54 @@ tm Common::getDateAndTime(string input){
 	// convert extracted data into time datatype
 	struct tm time = {};
 	time.tm_year = year;
-	time.tm_month = month;
-	time.tm_day = day;
+	time.tm_mon = month;
+	time.tm_mday = day;
 	time.tm_hour = hour;
 	time.tm_min = min;
 	return time;
 }
 
 int Common::convertMonthStrToInt(string input){
-	if (strcmp(input, "Jan") == 0 || strcmp(input, "JAN") == 0){
+	if (input == "Jan" || input == "JAN"){
 		return 0;
 	}
-	if (strcmp(input, "Feb") == 0 || strcmp(input, "FEB") == 0){
+	if (input == "Feb" || input == "FEB"){
 		return 1;
 	}
-	if (strcmp(input, "Mar") == 0 || strcmp(input, "MAR") == 0){
+	if (input == "Mar" || input == "MAR"){
 		return 2;
 	}
-	if (strcmp(input, "Apr") == 0 || strcmp(input, "APR") == 0){
+	if (input == "Apr" || input == "APR"){
 		return 3;
 	}
-	if (strcmp(input, "May") == 0 || strcmp(input, "MAY") == 0){
+	if (input == "May" || input == "MAY"){
 		return 4;
 	}
-	if (strcmp(input, "Jun") == 0 || strcmp(input, "JUN") == 0){
+	if (input == "Jun" || input == "JUN"){
 		return 5;
 	}
-	if (strcmp(input, "Jul") == 0 || strcmp(input, "JUL") == 0){
+	if (input == "Jul" || input == "JUL"){
 		return 6;
 	}
-	if (strcmp(input, "Aug") == 0 || strcmp(input, "AUG") == 0){
+	if (input == "Aug" || input == "AUG"){
 		return 7;
 	}
-	if (strcmp(input, "Sep") == 0 || strcmp(input, "SEP") == 0){
+	if (input == "Sep" || input == "SEP"){
 		return 8;
 	}
-	if (strcmp(input, "Oct") == 0 || strcmp(input, "OCT") == 0){
+	if (input == "Oct" || input == "OCT"){
 		return 9;
 	}
-	if (strcmp(input, "Nov") == 0 || strcmp(input, "NOV") == 0){
+	if (input == "Nov" || input == "NOV"){
 		return 10;
 	}
-	if (strcmp(input, "Dec") == 0 || strcmp(input, "DEC") == 0){
+	if (input == "Dec" || input == "DEC"){
 		return 11;
 	}
 	return -1;
 }
 
-int Common::converYYtoYYYY(string input){
+int Common::convertYYtoYYYY(string input){
 	int year = stoi(input);
 	// if year is already in YYYY format, just return it as it is
 	if (year > 1000){
