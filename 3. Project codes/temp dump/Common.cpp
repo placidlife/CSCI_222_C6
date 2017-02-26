@@ -1,8 +1,8 @@
-#include "common.h"
+#include "Common.h"
 
 #include <iostream>
 #include <ctime>
-#include <string>
+#include <string.h>
 #include <stdlib.h> // rand
 
 using namespace std;
@@ -10,15 +10,26 @@ using namespace std;
 void Common::pressEnter(){
 	cin.ignore();
 	cout << "Press Enter to continue...";
-	cin.getline();
+	string throwAway;
+	getline(cin, throwAway);
 }
 
 int Common::checkPositiveInt(string input){
-	// TODO
+	// check if int
+	if (!input.empty() && input.find_first_not_of("0123456789") == string::npos){
+		int i = stoi(input);
+		return i;
+	}
+	return 0;
 }
 
 double Common::checkPositiveCurrency(string input){
-	// TODO
+	// check if number
+	if (!input.empty() && input.find_first_not_of("0123456789.") == string::npos){
+		double i = stod(input);
+		return i;
+	}
+	return 0;
 }
 
 // function that gets user to input only "Y/N" with error checking
