@@ -24,6 +24,9 @@ class StockItemList {
 		bool updateStockItem (string itemID, StockItem * item);
 		bool removeStockItem (StockItem * item);
 
+		// give list of stock items to search
+		vector<StockItem *> getListOfStockItems();
+
 };
 
 #endif

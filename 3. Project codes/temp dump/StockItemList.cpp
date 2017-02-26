@@ -144,3 +144,6 @@ bool StockItemList::removeStockItem (StockItem * item){
 	return false;
 }
 
+vector<StockItem *> StockItemList::getListOfStockItems(){
+	return stockItems;
+}
