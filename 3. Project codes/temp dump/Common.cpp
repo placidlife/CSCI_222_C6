@@ -1,12 +1,5 @@
 #include "Common.h"
 
-#include <iostream>
-#include <ctime>
-#include <sstream> // for stringstream
-#include <string.h>
-#include <vector>
-#include <stdlib.h> // rand
-
 using namespace std;
 
 void Common::pressEnter(){

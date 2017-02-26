@@ -1,47 +1,50 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <iostream>
 #include <ctime>
+#include <sstream> // for stringstream
+#include <vector>
+#include <stdlib.h> // rand
+#include <iostream>
 #include <string>
 
 using namespace std;
 
 class Common{
 	public:
-		void pressEnter();
+		static void pressEnter();
 		// get string input and check if input is positive int
-		int checkPositiveInt(string input);
+		static int checkPositiveInt(string input);
 		// get string input and check if input is positive double
-		double checkPositiveCurrency(string input);
+		static double checkPositiveCurrency(string input);
 		
 		// get string date and time, and check if it's a past date
-		bool checkValidDateTime1(string date, string time);
-		bool checkValidDateTime2(string dateAndTime);
+		static bool checkValidDateTime1(string date, string time);
+		static bool checkValidDateTime2(string dateAndTime);
 
 		// for reading in data file's format
-		tm getDateAndTime2(string input);
+		static tm getDateAndTime2(string input);
 
 		// get a random time of tm datatype
-		tm getRandomTime();
+		static tm getRandomTime();
 		// get current time of tm datatype
-		tm getCurrentTime();
+		static tm getCurrentTime();
 		// a function to get user to input only "Y/N" with error checking
-		bool getInputYN(string message);
+		static bool getInputYN(string message);
 
 	private: 
 		// convert month string name to int
-		int convertMonthStrToInt(string input);
+		static int convertMonthStrToInt(string input);
 		// convert year string (YY) to int (YYYY)
-		int convertYYtoYYYY (string input);
+		static int convertYYtoYYYY (string input);
 		// convert date string to tm datatype
-		tm getDate(string input);
+		static tm getDate(string input);
 		// convert time string to tm datatype
-		tm getTime(string input);
+		static tm getTime(string input);
 		// convert date and time string to tm datatype
-		tm getDateAndTime(string input);
+		static tm getDateAndTime(string input);
 		// combine time tm to date tm
-		tm setTimeToDate(tm date, tm time); 
+		static tm setTimeToDate(tm date, tm time); 
 
 };
 
