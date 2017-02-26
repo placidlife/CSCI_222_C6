@@ -132,5 +132,13 @@ bool TransactionList::removeTransaction (Transaction * t){
 }
 
 static string TransactionList::getHeader(){
-	// TODO
+	ostringstream ss;
+	ss << setw(20) << left << "ID";
+	ss << setw(20) << left << "TransactionID";
+	ss << setw(20) << left << "TransactionDate";
+	ss << setw(20) << left << "TransactionTime";
+	ss << setw(20) << left << "TransactionPrice";
+	ss << setw(20) << left << "TransactionTotal";
+	ss << setw(20) << left << "QuantityProcessed" << "\n";
+	return ss.str();
 }

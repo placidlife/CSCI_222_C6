@@ -149,5 +149,12 @@ vector<StockItem *> StockItemList::getListOfStockItems(){
 }
 
 static string StockItemList::getHeader(){
-	// TODO
+	ostringstream ss;
+	ss << setw(10) << left << "ID";
+	ss << setw(25) << left << "Name";
+	ss << setw(15) << left << "Category";
+	ss << setw(20) << left << "Sub-Category";
+	ss << setw(10) << left << "Price";
+	ss << setw(10) << left << "Quantity" << "\n";
+	return ss.str();
 }
