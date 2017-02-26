@@ -14,22 +14,76 @@ bool Search::checkItemExists(string itemName, itemCat, itemSubCat){
 		
 
 void Search::searchItemName(){
-	// TODO
+	string itemName;
+	cout << "Please enter item name: " ;
+	getline(cin, itemName);
+	
+	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
+	cout << StockItemList::getHeader();
+
+	for (auto const & item : stockItems) {
+
+		if ( strcmp(itemName, item->getName()) == 0 ){
+			cout << item->toString();
+		}
+	}
+	pressEnter();
 }
 	
 void Search::searchItemCat(){
-	// TODO
+	string itemCat, itemSubCat;
+	cout << "Please enter iteam category: ";
+	getline(cin, itemCat);
+	cout << "Please enter item sub-category: "
+	getline(cin,itemSubCat);
+
+	Vector<StockItem *) stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
+	cout << StcokItemList::getHeader();
+
+	for (auto const & item : stockItems) {
+	
+		if ( ( strcmp(itemCat, item->getCat()) == 0 ) && ( strcmp(itemSubCat, item->getSubCat()) == 0 ) ) {
+			cout << item->toString();
+		}
+	}
+	pressEnter();
 }
 
 void Search::searchItemPrice(){
-	// TODO
+	int itemPrice;
+	cout << "Please enter item name: " ;
+	getline(cin, itemPrice);
+	
+	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
+	cout << StockItemList::getHeader();
+
+	for (auto const & item : stockItems) {
+
+		if ( strcmp(itemPrice, item->getPrice()) == 0 ){
+			cout << item->toString();
+		}
+	}
+	pressEnter();
 }
 
 void Search::searchItemQuantity(){
-	// TODO
+	int itemQuantity;
+	cout << "Please enter item name: " ;
+	getline(cin, itemQuantity);
+	
+	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
+	cout << StockItemList::getHeader();
+
+	for (auto const & item : stockItems) {
+
+		if ( strcmp(itemQuantity, item->getQuantity()) == 0 ){
+			cout << item->toString();
+		}
+	}
+	pressEnter();
 }
 
-
+/*
 vector<StockItem *> Search::findItemID(string itemID){
 	// TODO
 }
@@ -53,4 +107,4 @@ vector<StockItem *> Search::fidnItemQuantity(int min, int max){
 void Search::printSearchResults (vector<StockItem *>){
 	// TODO
 }
-
+*/
