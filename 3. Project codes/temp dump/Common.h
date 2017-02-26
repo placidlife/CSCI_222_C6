@@ -21,6 +21,9 @@ class Common{
 		tm getRandomTime();
 		// get current time of tm datatype
 		tm getCurrentTime();
+		// check if input choice is Y/N
+		// return 1 for yes, 0 for no, -1 for invalid
+		int checkInputYN(string input);
 
 	private: 
 		// convert month string name to int
