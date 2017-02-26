@@ -1,0 +1,22 @@
+V0.02
+Hasher folder
+
+program is to take in a file formated as 
+[username]:[password]:[user type]:[login attempts] 
+and replaces the passwords with a hashed version
+
+Main program
+
+Login Validater
+- reads from userData.txt
+- checks for username and password
+- if username is correct but password is wrong, file is edited to increase loginCount
+- Validater checks for user type and creates the appropriate object
+
+* 1 issue, no way to exit the program from this page
+
+
+V0.03 (does not compile)
+Added in summary code for Staff
+- logic untested
+- Bottle necked due to StockItem, TransactionList being unable to compile
