@@ -9,6 +9,7 @@ class StockItemList {
 		vector<StockItem *> stockItems;
 		void readStockItemFile();
 		void updateStockItemFile();
+		void processData(string line);
 
 	public: 
 		// constructor

@@ -11,12 +11,73 @@ TransactionList::TransactionList(){
 }
 
 void TransactionList::readTransactionFile(){
-	string generalName = "Transactions";
-	// TODO
+	cout << "Loading Transactions..." << endl << endl;
+	string fileName = "WMTTransactionsData.txt";
+	ifstream infile;
+	
+	infile.open(fileName);
+	
+	if (!infile){
+		cout << "could not open file " << fileName << " to read." << endl << endl;
+		exit (-1);
+		infile.close();
+	}
+
+	while (getline (infile, line)){
+		processData(line);
+	}
+
+	infile.close();
+	cout << "Transactions successfully loaded!" << endl << endl;
+}
+
+void TransactionList::processData(){
+	// if line is empty (in case of any writing error) don't do anything
+	if (line.length() > 0){
+		// use stringstream to break line into tokens
+		istringstream iss(line);
+		string token;
+		vector<string> fields;
+		while (getline(iss, token, ":")){
+			// store tokens into vector to access later
+			fields.push_back(token);
+		}
+		// now extract the data and store them accordingly
+		string transID = fields[0];
+		string itemID = fields[1];
+		int itemPrice = stoi(fields[2]);
+		int stockChanged = stoi(fields[3]);
+		tm date = //stod(fields[4]);
+		int quantityRemaining = stoi(fields[5]);
+
+		// now create transaction
+		Transaction *newTrans = new Transaction(itemID, transactionID, date,
+		itemPrice, stockChanged, quantityRemaining);
+
+		// store item to list 
+		stockItems.push_back(newItem);
+	}
 }
 
 void TransactionList::updateTransactionFile(){
-	// TODO
+	string fileName = "WMTTransactionsData.txt";
+	ofstream outfile;
+
+	outfile.open(fileName, ios_base::app);
+	if (!outfile){
+		cout << "could not open file " << fileName << " to append." << endl << endl;
+		exit (-1);
+		outfile.close();
+	}
+	// append latest item to file
+	Transaction * trans = transactions.pop_back();
+	outfile << transactions->getTransactionID() << ":"
+		<< transactions->getStockItemID() << ":"
+		<< transactions->getTransactionPrice() << ":"
+		<< transactions->getQuantityProcessed() << ":"
+		<< transactions->getDateAndTime() << ":"
+		<< transactions->getQuantityRemaining() << endl;
+	outfile.close();
 }
 
 void TransactionList::addTransaction(Transaction * t){
