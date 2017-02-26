@@ -2,6 +2,8 @@
 #define WAREHOUSEMANAGER_H
 
 #include "Staff.h"
+#include "TransactionList.h"
+#include "StockItemList.h"
 
 class WarehouseManager
 {

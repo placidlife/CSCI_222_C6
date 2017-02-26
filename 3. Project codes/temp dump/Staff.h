@@ -1,7 +1,10 @@
 #ifndef STAFF_H
 #define STAFF_H
 
+#include <string>
 #include <iostream>
+#include "Search.h"
+
 
 class Staff
 {

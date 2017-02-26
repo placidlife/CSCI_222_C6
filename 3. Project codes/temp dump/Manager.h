@@ -3,6 +3,7 @@
 
 //#include "Actor.h"
 #include "Staff.h"
+#include <string>
 
 class Manager : public Staff
 {

@@ -1,6 +1,8 @@
 #include "LoginValidater.h"
 #include "WarehouseManager.h"
 #include "Staff.h"
+#include "TransactionList.h"
+#include "StockItemList.h"
 
 int main()
 {
