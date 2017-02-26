@@ -15,8 +15,11 @@ class StockItemList {
 		StockItemList();
 		
 		void addStockItem(StockItem * item);
-		bool searchStockItem (string itemID); // use this to check if exists first
-		StockItem* getStockItem (string itemID); // then use this to get it
+		// use this to check if exists first
+		bool searchStockItem (string itemID); 
+		bool searchStockItem (string itemName, string itemCat, string itemSubCat); 
+		// then use this to get it
+		StockItem* getStockItem (string itemID);
 		bool updateStockItem (string itemID, StockItem * item);
 		bool removeStockItem (StockItem * item);
 

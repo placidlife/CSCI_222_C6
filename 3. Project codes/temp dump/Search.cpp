@@ -1,15 +1,15 @@
 #include "Search.h"
 
-Search::Search(void * WM){
-	// TODO
+Search::Search(void * WMptr){
+	WM = WMptr
 }
 		
 bool Search::checkItemExists(string itemID){
-	// TODO
+	return static_cast<WarehouseManager*>(WM)->searchItemID(itemID);
 }
 		
 bool Search::checkItemExists(string itemName, itemCat, itemSubCat){
-	// TODO
+	return static_cast<WarehouseManager*>(WM)->searchItemID(itemName, itemCat, itemSubCat);
 }
 		
 

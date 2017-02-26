@@ -6,7 +6,7 @@ class Search {
 		Search(void * WM);
 		
 		bool checkItemExists(string itemID);
-		bool checkItemExists(string itemName, itemCat, itemSubCat);
+		bool checkItemExists(string itemName, string itemCat, string itemSubCat);
 		
 		void searchItemName();	
 		void searchItemCat();

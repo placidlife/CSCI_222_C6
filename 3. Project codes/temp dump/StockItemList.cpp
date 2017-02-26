@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "StockItemList.h"
 
 // constructor
@@ -7,12 +9,27 @@ StockItemList::StockItemList(){
 }
 
 void StockItemList::readStockItemFile(){
-	string fileName = "StockItems.txt";
-	// TODO
+	string fileName = "WMTStockItemsData.txt";
+	ifstream infile;
+	
+	infile.open(fileName);
+	
+	
 }
 
 void StockItemList::updateStockItemFile(){
-	// TODO
+	string fileName = "WMTStockItemsData.txt";
+	ofstream outfile;
+
+	outfile.open(fileName, ios_base::app);
+	if (!outfile){
+		cout << "could not open file " << fileName << " to append." << endl << endl;
+		exit (-1);
+		infile.close();
+	}
+	// append latest item to file
+	outfile << stockItems.pop_back().toString();
+	outfile.close();
 }
 
 void StockItemList::addStockItem(StockItem * item){
@@ -26,6 +43,18 @@ bool StockItemList::searchStockItem (string itemID){
 	// iterate through list and find matching ID
 	for (auto const & item : stockItems){
 		if (strcmp(item->getID(), itemID) == 0){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool StockItemList::searchStockItem (string itemName, string itemCat, string itemSubCat){
+	// iterate through list and find matching details
+	for (auto const & item : stockItems){
+		if (strcmp(item->getName(), itemName) == 0 &&
+			strcmp(item->getCat(), itemCat) == 0 &&
+			strcmp(item->getSubCat(), itemSubCat) == 0 ){
 			return true;
 		}
 	}
