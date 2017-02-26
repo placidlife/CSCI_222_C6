@@ -97,8 +97,8 @@ std::string Staff::getStaffID()
   return staffID;
 }
 
-void Staff::setWM(void * warehouse)
+void Staff::setWM(void * wm)
 {
-  WM = warehouse;
-  search = new Search(warehouse);
+  WM = wm;
+  search.setWM(wm);
 }

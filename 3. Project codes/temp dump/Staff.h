@@ -5,7 +5,6 @@
 #include <iostream>
 #include "Search.h"
 
-
 class Staff
 {
   public:

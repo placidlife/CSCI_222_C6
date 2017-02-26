@@ -1,7 +1,7 @@
 #include "Search.h"
 
-Search::Search(void * WMptr){
-	WM = WMptr
+Search::setWM(void * wm){
+	WM = wm
 }
 		
 bool Search::checkItemExists(string itemID){

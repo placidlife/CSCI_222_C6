@@ -1,9 +1,15 @@
 #ifndef SEARCH_H
 #define SEARCH_H
 
+#include <string>
+
+using namespace std;
+
 class Search {
 	public: 
-		Search(void * WM);
+		Search(){}
+
+		void setWM(void * wm);
 		
 		bool checkItemExists(string itemID);
 		bool checkItemExists(string itemName, string itemCat, string itemSubCat);
