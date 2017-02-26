@@ -32,11 +32,6 @@ class Common{
 		// a function to get user to input only "Y/N" with error checking
 		static bool getInputYN(string message);
 
-	private: 
-		// convert month string name to int
-		static int convertMonthStrToInt(string input);
-		// convert year string (YY) to int (YYYY)
-		static int convertYYtoYYYY (string input);
 		// convert date string to tm datatype
 		static tm getDate(string input);
 		// convert time string to tm datatype
@@ -45,6 +40,13 @@ class Common{
 		static tm getDateAndTime(string input);
 		// combine time tm to date tm
 		static tm setTimeToDate(tm date, tm time); 
+
+	private: 
+		// convert month string name to int
+		static int convertMonthStrToInt(string input);
+		// convert year string (YY) to int (YYYY)
+		static int convertYYtoYYYY (string input);
+		
 
 };
 

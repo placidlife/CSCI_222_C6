@@ -1,12 +1,18 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-//#include "Actor.h"
-#include "Staff.h"
 #include <string>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <ctime>
+#include "Staff.h"
+#include "Common.h"
+#include "WarehouseManager.h"
 
-class Manager : public Staff
-{
+class Manager : public Staff {
   public:
     Manager(){}
     ~Manager(){}

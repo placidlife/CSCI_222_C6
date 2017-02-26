@@ -1,7 +1,8 @@
 #include "Search.h"
+#include "WarehouseManager.h"
 
-Search::setWM(void * wm){
-	WM = wm
+void Search::setWM(void * wm){
+	WM = wm;
 }
 		
 bool Search::checkItemExists(string itemID){

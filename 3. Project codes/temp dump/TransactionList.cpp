@@ -1,5 +1,6 @@
 #include <algorithm> // for searching a vector
 #include "Transaction.h"
+#include "Common.h"
 
 using namespace std;
 

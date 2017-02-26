@@ -18,8 +18,7 @@ class Transaction
 		int	quantityProcessed;
 		int 	quantityRemaining;
 	public:
-		Transaction(string itemID, string transactionID, tm date, 
-			double transactionPrice, int quantityProcessed);
+		Transaction(string itemID, string transactionID, tm date, double transactionPrice, int quantityProcessed);
 		//string generateID();
 		string	getStockItemID();
 		string	getTransactionID();

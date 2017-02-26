@@ -1,7 +1,6 @@
 #ifndef WAREHOUSEMANAGER_H
 #define WAREHOUSEMANAGER_H
 
-#include "Staff.h"
 #include "TransactionList.h"
 #include "StockItemList.h"
 
@@ -20,6 +19,16 @@ class WarehouseManager
 #if 1
     void testFunction();
 #endif
+
+	string generateTransactionID();
+	void generateRemainingQuantity();
+	bool searchItemID(string itemID);
+	bool searchItemID(string itemName, string itemCat, string itemSubCat);
+	vector<StockItem *> getListOfStockItem();
+	void updateItemQuantity(string itemID, int quantRemain);
+	void addStockItem(StockItem* item);
+	void addTransaction(Transaction* t);
+
   private:
     //void storeTransaction();
     

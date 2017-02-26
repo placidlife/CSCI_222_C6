@@ -1,13 +1,4 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <ctime>
-
 #include "Manager.h"
-#include "WarehouseManager.h"
-#include "Common.h"
 
 using namespace std; 
 
@@ -162,7 +153,7 @@ void Manager::readFile()
 
 	cout << "Data imported and processed successfully!" << endl; 
 
-	pressEnter();
+	Common::pressEnter();
 }
 
 void Manager::processData(string line){
@@ -170,9 +161,12 @@ void Manager::processData(string line){
 	if (line.length() > 0){
 		// use stringstream to break line into tokens
 		istringstream iss(line);
-		string token;
+		string token;	
+		string delimiter = ":";
 		vector<string> fields;
-		while (getline(iss, token, ":")){
+		size_t pos = 0;
+		while ((pos = line.find(delimiter)) != string::npos){
+			token = line.substr(0, pos);
 			// store tokens into vector to access later
 			fields.push_back(token);
 		}
@@ -183,8 +177,9 @@ void Manager::processData(string line){
 		string itemSubCat = fields[3];
 		double itemPrice = stod(fields[4]);
 		int stockMoved = stoi(fields[5]);
-		tm date = getDate(fields[6]);
-		tm time = getRandomTime();	
+		tm date = Common::getDate(fields[6]);
+		tm time = Common::getRandomTime();
+		date = Common::setTimeToDate(date, time);	
 		string transID = static_cast<WarehouseManager*>(WM)->generateTransactionID();
 		// now create item
 		StockItem *newItem = new StockItem(itemID, itemName, itemCat, itemSubCat);
@@ -195,7 +190,7 @@ void Manager::processData(string line){
 		// store item to list 
 		static_cast<WarehouseManager*>(WM)->addStockItem(newItem);
 		// now create transaction 
-		Transaction *newTransaction = new Transaction(itemID, transID, date, time, stockMoved);
+		Transaction *newTransaction = new Transaction(itemID, transID, date, itemPrice, stockMoved);
 		// store transaction to list
 		static_cast<WarehouseManager*>(WM)->addTransaction(newTransaction);
 	}

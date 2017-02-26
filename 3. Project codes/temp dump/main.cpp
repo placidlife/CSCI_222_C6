@@ -13,7 +13,6 @@ int main()
   bool success = false;
   
   Staff * curStaff;
-
   
   while(!success)
   {
