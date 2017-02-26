@@ -51,7 +51,7 @@ void Search::searchItemCat(){
 
 void Search::searchItemPrice(){
 	int itemPrice;
-	cout << "Please enter item name: " ;
+	cout << "Please enter item price: " ;
 	getline(cin, itemPrice);
 	
 	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
@@ -68,7 +68,7 @@ void Search::searchItemPrice(){
 
 void Search::searchItemQuantity(){
 	int itemQuantity;
-	cout << "Please enter item name: " ;
+	cout << "Please enter item quantity: " ;
 	getline(cin, itemQuantity);
 	
 	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
