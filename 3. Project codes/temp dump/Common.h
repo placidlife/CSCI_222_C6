@@ -51,7 +51,7 @@ class Common{
 		// convert month string name to int
 		static int convertMonthStrToInt(string input);
 		// convert month int to string name
-		static int convertMonthIntToString(int i);
+		static string convertMonthIntToString(int i);
 		// convert year string (YY) to int (YYYY)
 		static int convertYYtoYYYY (string input);
 		

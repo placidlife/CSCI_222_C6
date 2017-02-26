@@ -3,6 +3,7 @@
 
 #include "TransactionList.h"
 #include "StockItemList.h"
+#include "Staff.h"
 
 class WarehouseManager
 {

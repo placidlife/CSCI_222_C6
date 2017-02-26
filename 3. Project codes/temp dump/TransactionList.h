@@ -2,7 +2,10 @@
 #define TRANSACTIONLIST_H
 
 #include <vector>
+#include <fstream>
+#include <iomanip>
 #include "Transaction.h"
+//#include "WarehouseManager.h"
 
 using namespace std;
 
@@ -13,6 +16,8 @@ class TransactionList {
 		void * WM;
 		void readTransactionFile();
 		void updateTransactionFile();
+		void processData(string);
+		bool checkIfItemInVector(string item, vector<string> vec);
 
 	public: 
 		// constructor

@@ -1,5 +1,5 @@
 #include <algorithm> // for searching a vector
-#include "Transaction.h"
+#include "TransactionList.h"
 #include "Common.h"
 
 using namespace std;
@@ -26,6 +26,7 @@ void TransactionList::readTransactionFile(){
 		infile.close();
 	}
 
+	string line;
 	while (getline (infile, line)){
 		processData(line);
 	}
@@ -34,14 +35,17 @@ void TransactionList::readTransactionFile(){
 	cout << "Transactions successfully loaded!" << endl << endl;
 }
 
-void TransactionList::processData(){
+void TransactionList::processData(string line){
 	// if line is empty (in case of any writing error) don't do anything
 	if (line.length() > 0){
 		// use stringstream to break line into tokens
 		istringstream iss(line);
 		string token;
+		string delimiter = ":";
 		vector<string> fields;
-		while (getline(iss, token, ":")){
+		size_t pos = 0;
+		while ((pos = line.find(delimiter)) != string::npos){
+			token = line.substr(0, pos);
 			// store tokens into vector to access later
 			fields.push_back(token);
 		}
@@ -50,15 +54,17 @@ void TransactionList::processData(){
 		string itemID = fields[1];
 		int itemPrice = stoi(fields[2]);
 		int stockChanged = stoi(fields[3]);
-		tm date = //stod(fields[4]);
+		tm date = Common::getDateAndTime2(fields[4]);
 		int quantityRemaining = stoi(fields[5]);
 
 		// now create transaction
-		Transaction *newTrans = new Transaction(itemID, transactionID, date,
-		itemPrice, stockChanged, quantityRemaining);
+		Transaction *newTrans = new Transaction(itemID, transID, date,
+		itemPrice, stockChanged);
+		// update the quantity remaining
+		newTrans->updateQuantityRemaining(quantityRemaining);
 
 		// store item to list 
-		stockItems.push_back(newItem);
+		transactions.push_back(newTrans);
 	}
 }
 
@@ -73,13 +79,13 @@ void TransactionList::updateTransactionFile(){
 		outfile.close();
 	}
 	// append latest item to file
-	Transaction * trans = transactions.pop_back();
-	outfile << transactions->getTransactionID() << ":"
-		<< transactions->getStockItemID() << ":"
-		<< transactions->getTransactionPrice() << ":"
-		<< transactions->getQuantityProcessed() << ":"
-		<< transactions->getDateAndTime() << ":"
-		<< transactions->getQuantityRemaining() << endl;
+	Transaction * trans = transactions.back();
+	outfile << trans->getTransactionID() << ":";
+	outfile << trans->getStockItemID() << ":";
+	outfile << trans->getTransactionPrice() << ":";
+	outfile << trans->getQuantityProcessed() << ":";
+	outfile << Common::getDateStringForFile(trans->getDateAndTime()) << ":";
+	outfile << trans->getQuantityRemaining() << endl;
 	outfile.close();
 }
 
@@ -93,17 +99,17 @@ void TransactionList::addTransaction(Transaction * t){
 bool TransactionList::searchTransaction (string tID){
 	// iterate through list and find matching ID
 	for (auto const & t : transactions){
-		if (strcmp(t->getTransactionID(), tID) == 0){
+		if (t->getTransactionID() == tID){
 			return true;
 		}
 	}
-	return false
+	return false;
 }
 
 Transaction* TransactionList::getTransaction (string tID){
 	// iterate through list and find matching ID
 	for (auto const & t : transactions){
-		if (strcmp(t->getTransactionID(), tID) == 0){
+		if (t->getTransactionID() == tID){
 			return t;
 		}
 	}
@@ -113,7 +119,7 @@ bool TransactionList::updateTransaction (string tID, Transaction * t){
 	// iterate through list and find matching ID
 	// then overwrite that element
 	for (size_t i = 0; i != (sizeof(transactions) / sizeof(Transaction *)); i++){
-		if (strcmp(transactions[i]->getTransactionID(), tID) == 0){
+		if (transactions[i]->getTransactionID() == tID){
 			transactions[i] = t;
 			return true;
 		}
@@ -134,7 +140,7 @@ bool TransactionList::removeTransaction (Transaction * t){
 	return false;
 }
 
-static string TransactionList::getHeader(){
+string TransactionList::getHeader(){
 	ostringstream ss;
 	ss << setw(15) << left << "Transaction ID";
 	ss << setw(8) << left << "Item ID";
@@ -153,7 +159,7 @@ void TransactionList::generateRemainingQuantity(){
 	// go through every transaction in list 
 	for (auto const & t : transactions){
 		// for transaction whose item is not in list of initialized items
-		if (!checkIn(t->getStockItemID(), doneItems){
+		if (!checkIfItemInVector(t->getStockItemID(), doneItems)){
 			// give them an initial quantity
 			t->updateQuantity(1000);
 			// update the item too
@@ -169,7 +175,7 @@ void TransactionList::generateRemainingQuantity(){
 	for (auto const & itemID : doneItems){
 		int prevQuant = 1000;
 		for (auto const & t : transactions) {
-			if (strcmp(itemID, t->getStockItemID() == 0){
+			if (itemID == t->getStockItemID()){
 				// udpate the current remaining quantity
 				// by + or - the quantity processed
 				t->updateQuantityRemaining(prevQuant + t->getQuantityProcessed());
@@ -179,5 +185,14 @@ void TransactionList::generateRemainingQuantity(){
 				prevQuant = t->getQuantityRemaining();
 			}
 		}
+	}
+}
+
+// to check if item is in list
+bool TransactionList::checkIfItemInVector(string item, vector<string> vec){
+	if (find(vec.begin(), vec.end(), item) != vec.end()){
+		return true;
+	}else{
+		return false;
 	}
 }

@@ -1,4 +1,7 @@
 #include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <iostream>
 
 #include "StockItemList.h"
 
@@ -14,6 +17,7 @@ void StockItemList::readStockItemFile(){
 	cout << "Loading Stock Items..." << endl << endl;
 	string fileName = "WMTStockItemsData.txt";
 	ifstream infile;
+	string line;
 	
 	infile.open(fileName);
 	
@@ -37,8 +41,11 @@ void StockItemList::processData(string line){
 		// use stringstream to break line into tokens
 		istringstream iss(line);
 		string token;
+		string delimiter = ":";
 		vector<string> fields;
-		while (getline(iss, token, ":")){
+		size_t pos = 0;
+		while ((pos = line.find(delimiter)) != string::npos){
+			token = line.substr(0, pos);
 			// store tokens into vector to access later
 			fields.push_back(token);
 		}
@@ -73,7 +80,7 @@ void StockItemList::updateStockItemFile(){
 		outfile.close();
 	}
 	// append latest item to file
-	StockItem * stockItem = stockItems.pop_back();
+	StockItem * stockItem = stockItems.back();
 	outfile << stockItem->getID() << ":"
 		<< stockItem->getName() << ":"
 		<< stockItem->getCat() << ":"
@@ -86,7 +93,7 @@ void StockItemList::updateStockItemFile(){
 
 void StockItemList::addStockItem(StockItem * item){
 	// add new item to list
-	stockItems.push_back(t);
+	stockItems.push_back(item);
 	// update data file
 	updateStockItemFile();
 }
@@ -94,7 +101,7 @@ void StockItemList::addStockItem(StockItem * item){
 bool StockItemList::searchStockItem (string itemID){
 	// iterate through list and find matching ID
 	for (auto const & item : stockItems){
-		if (strcmp(item->getID(), itemID) == 0){
+		if (item->getID() == itemID){
 			return true;
 		}
 	}
@@ -104,9 +111,9 @@ bool StockItemList::searchStockItem (string itemID){
 bool StockItemList::searchStockItem (string itemName, string itemCat, string itemSubCat){
 	// iterate through list and find matching details
 	for (auto const & item : stockItems){
-		if (strcmp(item->getName(), itemName) == 0 &&
-			strcmp(item->getCat(), itemCat) == 0 &&
-			strcmp(item->getSubCat(), itemSubCat) == 0 ){
+		if (item->getName() == itemName &&
+			item->getCat() == itemCat &&
+			item->getSubCat() == itemSubCat){
 			return true;
 		}
 	}
@@ -116,17 +123,18 @@ bool StockItemList::searchStockItem (string itemName, string itemCat, string ite
 StockItem* StockItemList::getStockItem (string itemID){
 	// iterate through list and find matching ID
 	for (auto const & item : stockItems){
-		if (strcmp(item->getID(), itemID) == 0){
-			return t;
+		if (item->getID() == itemID){
+			return item;
 		}
 	}
+	return NULL; // shouldn't reach here, but need this to compile
 }
 
 bool StockItemList::updateStockItem (string itemID, StockItem * item){
 	// iterate through list and find matching ID
 	// then overwrite that element
 	for (size_t i = 0; i != (sizeof(stockItems) / sizeof(StockItem *)); i++){
-		if (strcmp(stockItems[i]->getID(), itemID) == 0){
+		if (stockItems[i]->getID() == itemID){
 			stockItems[i] = item;
 			return true;
 		}
@@ -150,7 +158,7 @@ vector<StockItem *> StockItemList::getListOfStockItems(){
 	return stockItems;
 }
 
-static string StockItemList::getHeader(){
+string StockItemList::getHeader(){
 	ostringstream ss;
 	ss << setw(10) << left << "ID";
 	ss << setw(25) << left << "Name";
@@ -162,10 +170,10 @@ static string StockItemList::getHeader(){
 }
 
 // for when generation remaining quantity
-void updateItemQuantity(string itemID, int quantRemain){
+void StockItemList::updateItemQuantity(string itemID, int quantRemain){
 	// find item and update it's quantity
 	for (auto const & item : stockItems){
-		if (strcmp(itemID, item->getID())==0){
+		if (itemID == item->getID()){
 			item->updateQuantity(quantRemain);
 			break;
 		}

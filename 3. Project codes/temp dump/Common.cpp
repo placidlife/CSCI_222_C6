@@ -197,7 +197,7 @@ string Common::getDateStringForFile(tm date){
 	// ss day
 	ss << date.tm_mday << "-";
 	// convert month to string and ss
-	string month = converMonthIntToString(date.tm_mon);
+	string month = convertMonthIntToString(date.tm_mon);
 	ss << month << "-";
 	// convert year to int, and get last two digits and ss
 	int year = date.tm_year;
@@ -209,7 +209,7 @@ string Common::getDateStringForFile(tm date){
 	return ss.str();
 }
 
-int Common::convertMonthIntToString(int i){
+string Common::convertMonthIntToString(int i){
 	if (i == 0)
 		return "Jan";
 	if (i == 1)
