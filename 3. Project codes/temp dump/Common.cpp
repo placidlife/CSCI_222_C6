@@ -21,7 +21,7 @@ double Common::checkPositiveCurrency(string input){
 	// TODO
 }
 
-bool Common::checkValidDateTime(string dateStr, string timeStr){
+bool Common::checkValidDateTime1(string dateStr, string timeStr){
 	// convert string input into tm struct data type
 	struct tm date = getDate(dateStr);
 	struct tm time = getTime(timeStr);
@@ -35,7 +35,36 @@ bool Common::checkValidDateTime(string dateStr, string timeStr){
 	}else{
 		return true;
 	}
-	
+}
+
+bool Common::checkValidDateTime2(string dateAndTimeStr){
+	// convert string input into tm struct data type
+	struct tm dateAndTime = getDateAndTime(dateAndTimeStr);
+	time_t now;
+	time(&now);
+	// if the current date is future from now
+	// return false
+	if (difftime(now, mktime(&dateAndTime) < 0){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+tm Common::getRandomTime(){
+	struct tm time;
+	srand(time(NULL));
+	time.tm_hour = rand()%24;
+	time.tm_min = rand()%60;
+	time.tm_sec = rand()%60;
+	return time;
+}
+
+tm Common::getCurrentTime(){
+	time_t now;
+	time(&now);
+	struct tm *timeNow = localtime(&now);
+	return *timeNow;
 }
 
 // combine the time tm to the date tm 
@@ -84,6 +113,40 @@ tm Common::getTime(string input){
 	time.tm_hour = hour;
 	time.tm_min = min;
 	time.tm_sec = sec;
+	return time;
+}
+
+tm Common::getDateAndTime(string input){
+	// use stringstream to break line into tokens
+	istringstream iss (input);
+	string token;
+	vector<string> fields;
+	// break string into tokens using multiple delimeters
+	while (getline(iss, input)){
+		size_t prev = 0, pos;
+		while ((pos = input.find_first_of("- :", prev)) != string::npos){
+			if (pos > prev)
+				fields.push_back(input.substr(prev, pos-prev));
+			prev = pos+1;
+		}
+		if (prev < input.length())
+			fields.push_back(input.substr(prev, string::npos));
+	}
+
+	// extract data to store into dates
+	int year = stoi(fields[0]);
+	int month = stoi(fields[1]);
+	int day = stoi(fields[2]);
+	int hour = stoi(fields[3]);
+	int min = stoi(fields[4]);
+
+	// convert extracted data into time datatype
+	struct tm time = {};
+	time.tm_year = year;
+	time.tm_month = month;
+	time.tm_day = day;
+	time.tm_hour = hour;
+	time.tm_min = min;
 	return time;
 }
 
@@ -149,13 +212,4 @@ int Common::converYYtoYYYY(string input){
 		return year + 2000;
 	}
 }	
-
-tm Common::getRandomTime(){
-	struct tm time;
-	srand(time(NULL));
-	time.tm_hour = rand()%24;
-	time.tm_min = rand()%60;
-	time.tm_sec = rand()%60;
-	return time;
-}
 
