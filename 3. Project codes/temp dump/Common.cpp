@@ -192,6 +192,52 @@ string Common::getDateString(tm date){
 	return ss.str();
 }
 
+string Common::getDateStringForFile(tm date){
+	stringstream ss;
+	// ss day
+	ss << date.tm_mday << "-";
+	// convert month to string and ss
+	string month = converMonthIntToString(date.tm_mon);
+	ss << month << "-";
+	// convert year to int, and get last two digits and ss
+	int year = date.tm_year;
+	year %= 100; 
+	ss << year << "-";
+	// get hour and mins into one int and ss
+	int time = date.tm_hour * 100 + date.tm_min;
+	ss << time;
+	return ss.str();
+}
+
+int Common::convertMonthIntToString(int i){
+	if (i == 0)
+		return "Jan";
+	if (i == 1)
+		return "Feb";
+	if (i == 2)
+		return "Mar";
+	if (i == 3)
+		return "Apr";
+	if (i == 4)
+		return "May";
+	if (i == 5)
+		return "Jun";
+	if (i == 6)
+		return "Jul";
+	if (i == 7)
+		return "Aug";
+	if (i == 8)
+		return "Sep";
+	if (i == 9)
+		return "Oct";
+	if (i == 10)
+		return "Nov";
+	if (i == 11)
+		return "Dec";
+	else
+		return "error";
+}
+
 int Common::convertMonthStrToInt(string input){
 	if (input == "Jan" || input == "JAN"){
 		return 0;

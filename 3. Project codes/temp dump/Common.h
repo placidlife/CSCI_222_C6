@@ -44,10 +44,14 @@ class Common{
 		// convert tm datatype to string
 		// nice version (not for data file)
 		static string getDateString(tm date);
+		// another version (for data file)
+		static string getDateStringForFile(tm date);
 
 	private: 
 		// convert month string name to int
 		static int convertMonthStrToInt(string input);
+		// convert month int to string name
+		static int convertMonthIntToString(int i);
 		// convert year string (YY) to int (YYYY)
 		static int convertYYtoYYYY (string input);
 		
