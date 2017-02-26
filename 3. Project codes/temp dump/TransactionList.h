@@ -1,6 +1,9 @@
 #ifndef TRANSACTIONLIST_H
 #define TRANSACTIONLIST_H
 
+#include <vector>
+#include "Transaction.h"
+
 using namespace std;
 
 class TransactionList {

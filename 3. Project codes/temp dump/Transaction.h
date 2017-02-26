@@ -5,8 +5,6 @@
 #include <vector>
 #include <ctime>
 
-#include "StockItem.cpp"
-
 using namespace std;
 
 class Transaction
@@ -38,6 +36,6 @@ class Transaction
 
 		string	toString(); // get string for item itself
 		void	voidTransaction();
-}
+};
 
 #endif
