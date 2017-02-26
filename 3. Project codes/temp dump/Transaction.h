@@ -15,25 +15,22 @@ class Transaction
 		string	itemID;
 		string	transactionID;
 		tm	date;
-		tm	time;
 		double	transactionPrice;
 		double	transactionTotal;
 		int	quantityProcessed;
 	public:
-		Transaction(string itemID, string transactionID, tm date, tm time, 
+		Transaction(string itemID, string transactionID, tm date, 
 			double transactionPrice, int quantityProcessed);
 		//string generateID();
 		string	getStockItemID();
 		string	getTransactionID();
-		tm	getDate();
-		tm	getTime();
+		tm	getDateAndTime();
 		double	getTransactionPrice();
 		double	getTransactionTotal();
 		int	getQuantityProcessed();
 		
 		void	updateQuantity(int);
-		void	updateDate(tm);
-		void	updateTime(tm);
+		void	updateDateAndTime(tm);
 		void	updatePrice(double);
 
 		string	toString();

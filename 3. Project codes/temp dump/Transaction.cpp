@@ -8,13 +8,12 @@
 
 using namespace std;
 
-Transaction::Transaction(string iID, string transac_ID, tm transac_date, tm transac_time, 
+Transaction::Transaction(string iID, string transac_ID, tm transac_date,
 	double price, int quantity)
 {
 	itemID 			= iID;
 	transactionID		= transac_ID;
 	date			= transac_date;
-	time			= transac_time;
 	transactionPrice	= price;
 	quantityProcessed	= quantity;
 	transactionTotal	= quantity * price;
@@ -27,11 +26,8 @@ string Transaction::getStockItemID()
 string Transaction::getTransactionID()
 { return transactionID; }
 
-time_t Transaction::getDate()
+time_t Transaction::getDateAndTime()
 { return date;  }
-
-time_t Transaction::getTime()
-{ return time; }
 
 double Transaction::getTransactionPrice()
 { return transactionPrice; }
@@ -49,7 +45,7 @@ bool Transaction::updateQuantity(int quantity)
 	return true;
 }
 // with reference from https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
-bool Transaction::updateDate(time_t transac_date)
+bool Transaction::updateDateAndTime(time_t transac_date)
 {
 /*
 time_t my_time;
@@ -75,11 +71,6 @@ timeinfo = localtime (&my_time);
 		date = transac_date;
 		return true;
 	}
-}
-
-void Transaction::updateTime(time_t transac_time)
-{
-	time = transac_time;
 }
 
 bool Transaction::updatePrice(double price)
