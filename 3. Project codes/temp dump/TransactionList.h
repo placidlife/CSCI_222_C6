@@ -21,7 +21,8 @@ class TransactionList {
 
 	public: 
 		// constructor
-		TransactionList(void * wm);
+		TransactionList();
+		void setWM(void * wm);
 		
 		void addTransaction(Transaction * t);
 		// use this to check if exists first

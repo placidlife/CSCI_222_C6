@@ -6,11 +6,13 @@ using namespace std;
 
 
 // constructor
-TransactionList::TransactionList(void *wm){
-	// set WM
-	WM = wm;
+TransactionList::TransactionList(){
 	// read stock item file and get in all stock item data
 	readTransactionFile();
+}
+
+void TransactionList::setWM(void *wm){
+	WM = wm;
 }
 
 void TransactionList::readTransactionFile(){

@@ -16,7 +16,8 @@ class StockItemList {
 
 	public: 
 		// constructor
-		StockItemList(void *wm);
+		StockItemList();
+		void setWM(void *wm);
 		
 		void addStockItem(StockItem * item);
 		// use this to check if exists first

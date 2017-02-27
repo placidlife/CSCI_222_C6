@@ -37,7 +37,7 @@ vector<StockItem *> WarehouseManager::getListOfStockItem(){
 }
 
 void WarehouseManager::updateItemQuantity(string itemID, int quantRemain){
-	void stockItemList.updateItemQuantity(itemID, quantRemain);
+	stockItemList.updateItemQuantity(itemID, quantRemain);
 }
 
 void WarehouseManager::addStockItem(StockItem* item){

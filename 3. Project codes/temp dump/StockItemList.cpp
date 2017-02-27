@@ -6,12 +6,14 @@
 #include "StockItemList.h"
 
 // constructor
-StockItemList::StockItemList(void * wm){
-	// set WM
-	WM = wm;
+StockItemList::StockItemList(){
 	// read stock item file and get in all stock item data
 	readStockItemFile();
 }
+
+void StockItemList::setWM(void *wm){
+	WM = wm;
+}	
 
 void StockItemList::readStockItemFile(){
 	cout << "Loading Stock Items..." << endl << endl;
