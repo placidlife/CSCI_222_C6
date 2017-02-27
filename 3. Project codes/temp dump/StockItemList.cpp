@@ -18,6 +18,11 @@ void StockItemList::setWM(void *wm){
 void StockItemList::readStockItemFile(){
 	cout << "Loading Stock Items..." << endl << endl;
 	string fileName = "WMTStockItemsData.txt";
+	// trying to .open file first to create file if it doesn't already exist
+	ofstream outfile;
+	outfile.open(fileName);
+	outfile.close();
+	// now trying to read in file
 	ifstream infile;
 	string line;
 	

@@ -1,6 +1,7 @@
 #include <algorithm> // for searching a vector
 #include "TransactionList.h"
 #include "Common.h"
+#include "Transaction.h"
 #include "WarehouseManager.h"
 
 using namespace std;
@@ -19,6 +20,12 @@ void TransactionList::setWM(void *wm){
 void TransactionList::readTransactionFile(){
 	cout << "Loading Transactions..." << endl << endl;
 	string fileName = "WMTTransactionsData.txt";
+
+	// trying to .open file first to create file if it doesn't already exist
+	ofstream outfile;
+	outfile.open(fileName);
+	outfile.close();
+	// now trying to read in file
 	ifstream infile;
 	
 	infile.open(fileName);
