@@ -17,6 +17,7 @@ bool Search::checkItemExists(string itemName, string itemCat, string itemSubCat)
 void Search::searchItemName(){
 	string itemName;
 	cout << "Please enter item name: " ;
+	cin.ignore();
 	getline(cin, itemName);
 	
 	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
@@ -34,7 +35,8 @@ void Search::searchItemName(){
 void Search::searchItemCat(){
 	cout << "Search Item by Category" << endl << endl;
 	string itemCat, itemSubCat;
-	cout << "Please enter iteam category: ";
+	cout << "Please enter item category: ";
+	cin.ignore();
 	getline(cin, itemCat);
 	cout << "Please enter item sub-category: ";
 	getline(cin,itemSubCat);
@@ -58,6 +60,7 @@ void Search::searchItemPrice(){
 	double minPrice;
 	double maxPrice;
 	cout << "Please enter minimum price: " ;
+	cin.ignore();
 	getline(cin, minStr);
 	// check if input is valid while converting string to double
 	// while not valid, keep asking user to input again.
@@ -94,6 +97,7 @@ void Search::searchItemQuantity(){
 	int minQuant;
 	int maxQuant;
 	cout << "Please enter minimum quantity: " ;
+	cin.ignore();
 	getline(cin, minStr);
 	// check if input is valid while converting string to int
 	// while not valid, keep asking user to input again.
