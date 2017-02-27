@@ -1,4 +1,5 @@
 #include "Staff.h"
+#include "WarehouseManager.h"
 
 using namespace std;
 
@@ -71,7 +72,7 @@ void Staff::doProcessTransaction()
 
     int choice;
     string input;
-    std::cout << "Enter option: ";
+    std::cout << "\nEnter option: ";
     getline(cin, input);
 
     while (!Common::checkInRange(1, 3, input)){
@@ -98,20 +99,20 @@ void Staff::doProcessTransaction()
 
 void Staff::doProcessStockIn(){
 	cout << "Processing stock in" << endl << endl;
-	std::cout << "Enter item ID: " << std::endl << std::endl;
+	std::cout << "Enter item ID: ";
 	string input;
 	std::getline (std::cin,input);
 	// if item exists
-	if ( static_cast<WarehouseManager*>(WM)->searchItemID(stockID)){
+	if ( static_cast<WarehouseManager*>(WM)->searchItemID(input)){
 		std::cout << "Item Found:" << std::endl << std::endl;
-        StockItem *stockItem = static_cast<WarehouseManager*>(WM)->getStockItem(stockID);
-        std::cout << stockItem->getHeader() << std::endl << std::endl;
+        StockItem *stockItem = static_cast<WarehouseManager*>(WM)->getStockItem(input);
+        std::cout << StockItemList::getHeader() << std::endl << std::endl;
         std::cout << stockItem->toString() << std::endl << std::endl;
         string message = "Proceed to process? (Y/N): ";
 		// if user selects yes
-		if (getInputYN(message)){
+		if (Common::getInputYN(message)){
 			// ask for quantity 
-			std::cout << "Enter stock quantity " << std::endl << std::endl;
+			std::cout << "Enter stock quantity ";
 			string inputStockQuantity;
             std::getline (std::cin,inputStockQuantity);
             // while input is not valid, keep prompting for input
@@ -136,7 +137,7 @@ void Staff::doProcessStockIn(){
 					std::getline (std::cin,dateStr);
 				}
 				// convert string to tm
-				date = Common::getDate2();
+				date = Common::getDate2(dateStr);
 			}
 			// now create transaction item
 			string itemID = stockItem->getName();
@@ -163,65 +164,7 @@ void Staff::doProcessStockIn(){
 		cout << "Error! " << input << " does not exist! " << endl << endl;
 	}
 	
-	pressEnter();
-}
-
-void Staff::doProcessStockOut(){
-	
-}
-
-void Staff::doProcessStockIn(){
-	cout << endl;
-	std::cout << "Enter item ID: ";
-	string input;
-	std::getline (std::cin,input);
-	// if item exists
-	if (static_cast<WarehouseManager*>(WM)->searchItemID(stockID)){
-		std::cout << "Item Found:" << std::endl << std::endl;
-        StockItem stockItem = static_cast<WarehouseManager*>(WM)->getStockItem(stockID);
-        std::cout << stockItem.getHeader() << std::endl << std::endl;
-        std::cout << stockItem.toString() << std::endl << std::endl;
-    	string message = "Proceed to process stock? (Y/N)";
-		// if user selects yes
-		if (Common::getInputYN(message)){
-			// ask for quantity
-			std::cout << "Enter stock quantity " << std::endl << std::endl;
-			string inputStockQuantity;
-            std::getline (std::cin,inputStockQuantity);
-            // if input is invalid, keep asking to re-enter
-            while (!checkPositiveInt(inputStockQuantity)){
-            	cout << "Invalid input. Please enter a positive number: ";
-            	std::getline (std::cin,inputStockQuantity);
-			}
-			// ask for date and time
-			cout << "Enter date and time in the following format: " << endl;
-			cout << "YYYY-MM-DD HH:MM (leave blank for current date and time): ";
-			string dateStr;
-			tm date;
-			std::getline (std::cin,dateStr);
-			// if blank, get current date and time
-			if (dateStr.empty())){
-				date = Common::getCurrentTime();
-			}
-			// if there are input, check if input is valid
-			// keep asking for reinput if input is invalid
-			else {
-				// checkValidDateTime will do error checking and print error message
-				while (!Common::checkValidDateTime(dateStr)){
-					std::getline (std::cin,dateStr);
-				}
-			}
-		}
-		// if user selects no (don't want to process)
-		// do nothing
-	}
-	// if item does not exist
-	else{
-		cout << input << " does not exist!" << endl << endl;
-	}
-	
-	// press enter to return 
-	pressEnter();
+	Common::pressEnter();
 }
 
 void Staff::doProcessStockOut(){

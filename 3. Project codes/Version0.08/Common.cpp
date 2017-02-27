@@ -37,7 +37,7 @@ double Common::checkPositiveCurrency(string input){
 }
 
 // function that gets user to input only "Y/N" with error checking
-int checkInputYN(string message){
+bool Common::getInputYN(string message){
 	string input;
 	cout << message;
 	while (1){
@@ -53,6 +53,7 @@ int checkInputYN(string message){
 			cout << "Please enter only 'Y' or 'N': ";
 		}
 	}
+	return 0; // won't come here, just need for compilation
 }
 
 // get input and check if valid date and time format
@@ -77,7 +78,7 @@ bool Common::checkValidDateTime(string dateStr){
 }
 
 // check if string is of correct format
-bool checkValidDateTimeFormat(string input){
+bool Common::checkValidDateTimeFormat(string input){
 	// TODO 
 	return true;
 }
@@ -184,11 +185,11 @@ tm Common::getDate2(string input){
 	}
 
 	// extract data to store into dates
-	int year = fields[0];
-	int month = fields[1];
-	int day = fields[2];
-	int hour = fields[3];
-	int mins = fields[4];
+	int year = stoi(fields[0]);
+	int month = stoi(fields[1]);
+	int day = stoi(fields[2]);
+	int hour = stoi(fields[3]);
+	int mins = stoi(fields[4]);
 	// convert extracted data into time datatype
 	struct tm date = {};
 	date.tm_year = year - 1900;
