@@ -25,8 +25,6 @@ class Staff
   protected:
     virtual void doSearchStock();
     virtual void doProcessTransaction();
-    virtual void doProcessStockIn();
-    virtual void doProcessStockOut();
     virtual void doDailySummary();
     virtual void doWeeklySummary();
     virtual void doMonthlySummary();

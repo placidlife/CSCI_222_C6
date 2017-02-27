@@ -177,7 +177,10 @@ void Manager::processData(string line){
 			token = line.substr(0, pos);
 			// store tokens into vector to access later
 			fields.push_back(token);
+			line.erase(0, pos + delimiter.length());
 		}
+		// last field not pushed back, so do that manually outside
+		fields.push_back(line);
 		// now extract the data and store them accordingly
 		string itemID = fields[0];
 		string itemName = fields[1];
