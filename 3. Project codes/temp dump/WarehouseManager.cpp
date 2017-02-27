@@ -15,9 +15,15 @@ void WarehouseManager::setData(TransactionList tList, StockItemList sIList){
 	stockItemList = sIList;
 }
 
+// get last transaction ID and generate a new one 
 string WarehouseManager::generateTransactionID(){
-	// TODO
-	return "";
+	string lastID = transactionList.getLatestTransactionID();
+	int lastIDInt = stoi(lastID);
+	int newIDInt = lastIDInt++;
+	stringstream ss;
+	ss << setw(9) << setfill('0') << newIDInt;
+	string newID = ss.str();
+	return newID;
 }
 
 void WarehouseManager::generateRemainingQuantity(){
