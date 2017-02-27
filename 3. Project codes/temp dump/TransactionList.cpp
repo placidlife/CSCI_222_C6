@@ -1,6 +1,7 @@
 #include <algorithm> // for searching a vector
 #include "TransactionList.h"
 #include "Common.h"
+#include "WarehouseManager.h"
 
 using namespace std;
 
@@ -115,6 +116,7 @@ Transaction* TransactionList::getTransaction (string tID){
 			return t;
 		}
 	}
+	return NULL; // shouldn't need this, but just to compile
 }
 
 bool TransactionList::updateTransaction (string tID, Transaction * t){

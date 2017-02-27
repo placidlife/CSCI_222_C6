@@ -22,8 +22,10 @@ int main()
   WarehouseManager wm(curStaff);  
   curStaff->setWM(&wm);
   
-  TransactionList transactionList = new TransactionList(&wm);
-  StockItemList stockItemList = new StockItemList(&wm);
+  TransactionList transactionList;
+  StockItemList stockItemList;
+  transactionList.setWM(&wm);
+  stockItemList.setWM(&wm);
   wm.setData(transactionList, stockItemList);
   // std::string fileName;
   // std::getline(std::cin, filename);
