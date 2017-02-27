@@ -13,17 +13,18 @@ using namespace std;
 class Common{
 	public:
 		static void pressEnter();
+		// check if an input is within range
+		static bool checkInRange(int a, int b, string input);
 		// get string input and check if input is positive int
 		static int checkPositiveInt(string input);
 		// get string input and check if input is positive double
 		static double checkPositiveCurrency(string input);
 		
+		// for program to check if input is valid (in both format and value)
+		static bool checkValidDateTime(string date);
 		// get string date and time, and check if it's a past date
 		static bool checkValidDateTime1(string date, string time);
 		static bool checkValidDateTime2(string dateAndTime);
-
-		// for reading in data file's format
-		static tm getDateAndTime2(string input);
 
 		// get a random time of tm datatype
 		static tm getRandomTime();
@@ -33,14 +34,21 @@ class Common{
 		static bool getInputYN(string message);
 
 		// convert date string to tm datatype
+		// for format of DD-MON-YY only
 		static tm getDate(string input);
+		// for format of YYYY-MM-DD HH:MM
+		static tm getDate2(string input);
 		// convert time string to tm datatype
 		static tm getTime(string input);
-		// convert date and time string to tm datatype
-		static tm getDateAndTime(string input);
 		// combine time tm to date tm
-		static tm setTimeToDate(tm date, tm time); 
+		static tm setTimeToDate(tm date, tm time);
 
+		// convert string input of date and time into tm datatype
+		// for user input
+		static tm getDateAndTime(string input);
+		// for reading in data file's format
+		static tm getDateAndTime2(string input);
+		 
 		// convert tm datatype to string
 		// nice version (not for data file)
 		static string getDateString(tm date);
@@ -54,6 +62,8 @@ class Common{
 		static string convertMonthIntToString(int i);
 		// convert year string (YY) to int (YYYY)
 		static int convertYYtoYYYY (string input);
+		// check if string is of correct format
+		static bool checkValidDateTimeFormat(string);
 		
 
 };

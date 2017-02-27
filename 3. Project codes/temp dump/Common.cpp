@@ -3,10 +3,19 @@
 using namespace std;
 
 void Common::pressEnter(){
-	cin.ignore();
 	cout << "Press Enter to continue...";
 	string throwAway;
 	getline(cin, throwAway);
+}
+
+bool Common::checkInRange(int a, int b, string input){
+	if (!checkPositiveInt(input))
+		return false;
+	int c = stoi(input);
+	if (c >= a && c <= b)
+		return true;
+	else
+		return false;
 }
 
 int Common::checkPositiveInt(string input){
@@ -44,6 +53,29 @@ int checkInputYN(string message){
 			cout << "Please enter only 'Y' or 'N': ";
 		}
 	}
+}
+
+// get input and check if valid date and time format
+bool Common::checkValidDateTime(string dateStr){
+	// check if input format is valid
+	checkValidDateTimeFormat(dateStr);
+	// convert string input into tm struct data type
+	struct tm date = getDate2(dateStr);
+	time_t timeNow;
+	time(&timeNow);
+	// if the current date is future from now
+	// return false
+	if (difftime(timeNow, mktime(&date) < 0)){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+// check if string is of correct format
+bool checkValidDateTimeFormat(string input){
+	// TODO 
+	return true;
 }
 
 bool Common::checkValidDateTime1(string dateStr, string timeStr){
@@ -100,6 +132,8 @@ tm Common::setTimeToDate(tm date, tm time){
 	return date;
 }
 
+// convert date string to tm datatype
+// for format of DD-MON-YY 
 tm Common::getDate(string input){
 	// use stringstream to break line into tokens
 	istringstream iss (input);
@@ -111,7 +145,9 @@ tm Common::getDate(string input){
 		token = input.substr(0, pos);
 		// store tokens into vector to access later
 		fields.push_back(token);
+		input.erase(0, pos + delimiter.length());
 	}
+	fields.push_back(input);
 	// extract data to store into dates
 	int day = stoi(fields[0]);
 	int month = convertMonthStrToInt(fields[1]);
@@ -121,6 +157,41 @@ tm Common::getDate(string input){
 	date.tm_year = year - 1900;
 	date.tm_mon = month -1;
 	date.tm_mday = day;
+	return date;
+}
+
+// convert date string to tm datatype
+// for format of YYYY-MM-DD HH:MM
+tm Common::getDate2(string input){
+	// use stringstream to break line into tokens
+	istringstream iss (input);
+	string token;
+	vector<string> fields;
+	// break string into tokens using multiple delimeters
+	while (getline(iss, input)){
+		size_t prev = 0, pos;
+		while ((pos = input.find_first_of("- :", prev)) != string::npos){
+			if (pos > prev)
+				fields.push_back(input.substr(prev, pos-prev));
+			prev = pos+1;
+		}
+		if (prev < input.length())
+			fields.push_back(input.substr(prev, string::npos));
+	}
+
+	// extract data to store into dates
+	int year = fields[0];
+	int month = fields[1];
+	int day = fields[2];
+	int hour = fields[3];
+	int mins = fields[4];
+	// convert extracted data into time datatype
+	struct tm date = {};
+	date.tm_year = year - 1900;
+	date.tm_mon = month -1;
+	date.tm_mday = day;
+	date.tm_hour = hour;
+	date.tm_min = mins;
 	return date;
 }
 
@@ -135,7 +206,9 @@ tm Common::getTime(string input){
 		token = input.substr(0, pos);
 		// store tokens into vector to access later
 		fields.push_back(token);
+		input.erase(0, pos + delimiter.length());
 	}
+	fields.push_back(input);
 	// extract data to store into dates
 	int hour = stoi(fields[0]);
 	int min = stoi(fields[1]);
@@ -148,6 +221,8 @@ tm Common::getTime(string input){
 	return time;
 }
 
+// convert string input of date and time into tm datatype
+// for user input
 tm Common::getDateAndTime(string input){
 	// use stringstream to break line into tokens
 	istringstream iss (input);
@@ -181,6 +256,44 @@ tm Common::getDateAndTime(string input){
 	time.tm_min = min;
 	return time;
 }
+
+// convert string input of date and time into tm datatype
+// for data file 
+tm Common::getDateAndTime2(string input){
+	// use stringstream to break line into tokens
+	istringstream iss (input);
+	string token;
+	string delimiter = "-";
+	vector<string> fields;
+	size_t pos = 0;
+	while ((pos = input.find(delimiter)) != string::npos){
+		token = input.substr(0, pos);
+		// store tokens into vector to access later
+		fields.push_back(token);
+		input.erase(0, pos + delimiter.length());
+	}
+	fields.push_back(input);
+	// extract data to store into dates
+	int day = stoi(fields[0]);
+	// convert month string to int and store
+	int month = convertMonthStrToInt(fields[1]);
+	// convert year string to int and get full year to store
+	int year = convertYYtoYYYY(fields[2]);
+	// convert time (conjoined string) into int and break into hour and min
+	int time = stoi(fields[3]); 
+	int min = time % 100; // get last two digit
+	int hour = time / 100; // get first two digit
+
+	// convert extracted data into time datatype
+	struct tm timet = {};
+	timet.tm_year = year;
+	timet.tm_mon = month;
+	timet.tm_mday = day;
+	timet.tm_hour = hour;
+	timet.tm_min = min;
+	return timet;
+}
+
 
 string Common::getDateString(tm date){
 	stringstream ss;

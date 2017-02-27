@@ -123,6 +123,21 @@ void Staff::doProcessStockIn(){
 			// ask for date and time
 			cout << "Enter date and time in the following format: " << endl;
 			cout << "YYYY-MM-DD HH:MM (leave blank for current date and time): ";
+			string dateStr;
+			tm date;
+			std::getline (std::cin,dateStr);
+			// if blank, get current date and time
+			if (dateStr.empty())){
+				date = Common::getCurrentTime();
+			}
+			// if there are input, check if input is valid
+			// keep asking for reinput if input is invalid
+			else {
+				// checkValidDateTime will do error checking and print error message
+				while (!Common::checkValidDateTime(dateStr)){
+					std::getline (std::cin,dateStr);
+				}
+			}
 		}
 		// if user selects no (don't want to process)
 		// do nothing
