@@ -17,7 +17,6 @@ bool Search::checkItemExists(string itemName, string itemCat, string itemSubCat)
 void Search::searchItemName(){
 	string itemName;
 	cout << "Please enter item name: " ;
-	cin.ignore();
 	getline(cin, itemName);
 	
 	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
@@ -36,10 +35,8 @@ void Search::searchItemCat(){
 	cout << "Search Item by Category" << endl << endl;
 	string itemCat, itemSubCat;
 	cout << "Please enter iteam category: ";
-	cin.ignore();
 	getline(cin, itemCat);
 	cout << "Please enter item sub-category: ";
-	cin.ignore();
 	getline(cin,itemSubCat);
 
 	vector<StockItem *> stockItems = static_cast<WarehouseManager*>(WM)->getListOfStockItem();
@@ -61,24 +58,20 @@ void Search::searchItemPrice(){
 	double minPrice;
 	double maxPrice;
 	cout << "Please enter minimum price: " ;
-	cin.ignore();
 	getline(cin, minStr);
 	// check if input is valid while converting string to double
 	// while not valid, keep asking user to input again.
 	while(!(minPrice = Common::checkPositiveCurrency(minStr))){
 		cout << "Please enter only positive integer: ";
-		cin.ignore();
 		getline(cin, minStr);
 	}
 
 	cout << "Please enter maximum price: " ;
-	cin.ignore();
 	getline(cin, maxStr);
 	// check if input is valid while converting string to double
 	// while not valid, keep asking user to input again.
 	while(!(maxPrice = Common::checkPositiveCurrency(maxStr))){
 		cout << "Please enter only positive integer: ";
-		cin.ignore();
 		getline(cin, maxStr);
 	}
 	
@@ -101,24 +94,20 @@ void Search::searchItemQuantity(){
 	int minQuant;
 	int maxQuant;
 	cout << "Please enter minimum quantity: " ;
-	cin.ignore();
 	getline(cin, minStr);
 	// check if input is valid while converting string to int
 	// while not valid, keep asking user to input again.
 	while(!(minQuant = Common::checkPositiveInt(minStr))){
 		cout << "Please enter only positive integer: ";
-		cin.ignore();
 		getline(cin, minStr);
 	}
 
 	cout << "Please enter maximum quantity: " ;
-	cin.ignore();
 	getline(cin, maxStr);
 	// check if input is valid while converting string to int
 	// while not valid, keep asking user to input again.
 	while(!(maxQuant = Common::checkPositiveInt(maxStr))){
 		cout << "Please enter only positive integer: ";
-		cin.ignore();
 		getline(cin, maxStr);
 	}
 	

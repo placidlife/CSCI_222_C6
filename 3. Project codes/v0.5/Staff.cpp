@@ -815,6 +815,7 @@ void Staff::readFile()
 	cout << "Please enter name of file you would like to import: ";
 
 	string fileName;
+	cin.ignore();
 	getline (cin, fileName);
 
 	ifstream infile;
